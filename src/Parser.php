@@ -20,45 +20,61 @@ use JamesGordo\CSV\Data;
 class Parser
 {
 	/**
-	 * @var string
+	 * @var string $csv
 	 */
 	protected $csv;
 
 	/**
-	 * @var array
+	 * @var array $data
 	 */
 	protected $data = array();
 
 	/**
+	 * @var array headers
+	 */
+	protected $headers = array();
+
+	/**
+	 * @var array $valid_mime_types
+	 */
+	protected $valid_mime_types = array(
+		'text/csv',
+		'text/plain',
+		'application/csv',
+		'text/comma-separated-values',
+		'application/excel',
+		'application/vnd.ms-excel',
+		'application/vnd.msexcel',
+	);
+
+	/**
 	 * Parser Constructor.
 	 *
+	 * @param string $csv
 	 * @return void
 	 */
-	public function __construct($csv)
+	public function __construct($csv = null)
 	{
-		// Set the File to be Parsed
-		$this->setCsv($csv);
+		// Parse Automatically if $csv file is passed.
+		if(strlen($csv) > 0) {
+			// Set the File to be Parsed
+			$this->setCsv($csv);
 
-		// trigger the parsing
-		$this->parse();
+			// trigger the parsing
+			$this->parse();
+		}
 	}
 
 	/**
 	 * Sets the CSV file to be parsed.
 	 *
-	 * @throws InvalidArgumentException File $file does not exist.
+	 * @param sting $csv
 	 * @return void
 	 */
 	public function setCsv($csv)
 	{
-		// verify if parameter meets the contract
-		if(strlen($csv) < 1) {
-			throw new \InvalidArgumentException('Filename is not a valid string.');
-		}
-		// verify if parameter meets the contract
-		if(file_exists($csv) !== true) {
-			throw new \InvalidArgumentException("File {$csv} does not exist.");
-		}
+		// Verify if the CSV File is Valid
+		$this->checkFile($csv);
 
 		$this->csv = $csv;
 	}
@@ -75,41 +91,70 @@ class Parser
 	}
 
 	/**
+	 * Checks wether the CSV file is Valid.
+	 *
+	 * @param string $csv
+	 * @throws InvalidArgumentException Filename is not a valid string.
+	 * @throws InvalidArgumentException File $csv does not exist.
+	 * @throws InvalidArgumentException File is not a valid csv file.
+	 * @return bool
+	 */
+	public function checkFile($csv = null) {
+		// set the file to be checked
+		$file = ($csv === null) ? $this->getCsv() : $csv;
+
+		// verify if parameter meets the contract
+		if(strlen($file) < 1) {
+			throw new \InvalidArgumentException('Filename is not a valid string.');
+		}
+
+		// verify if parameter meets the contract
+		if(file_exists($file) !== true) {
+			throw new \InvalidArgumentException("File {$file} does not exist.");
+		}
+
+		// verify if file is a valid csv file
+		if(in_array(mime_content_type($file), $this->valid_mime_types) !== true) {
+			throw new \InvalidArgumentException("File is not a valid csv file.");
+		}
+
+		return true;
+	}
+
+	/**
 	 * Parses the CSV file
 	 *
 	 * @return void
 	 */
-	private function parse()
+	public function parse()
 	{
-		// Open the CSV file
-		if (($handle = fopen($this->getCsv(), "r")) !== FALSE) {
-			// initialize empty array for the CSV Header
-			$keys = array();
+		// Verify if the CSV File is Valid
+		$this->checkFile();
 
+		// Open the CSV file to be parsed
+		if (($handle = fopen($this->getCsv(), "r")) !== FALSE) {
 			// set the csv index
 			$i = 0;
 
-			// loop and assign a the header as the key values the others as the value in its corresponding keys
+			// loop through each row in the csv file
 			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-				// verify the csv data if not null
-				// this is to skip empty lines
+				// skip all empty lines
 				if ($data != null) {
 					// verify the starting index
-					if ($i == 0) {
-						// Set Starting Index as the Data Object Keys
-						$keys = $data;
-					} else {
+					if ($i !== 0) {
 						// Initialize the Data Object
-						$row = new Data;
+						$row = new Data();
 
-						// loop through all csv data
+						// Dynamically set all the Data property
 						foreach ($data as $j => $value){
-							// Set the Data Property
-							$row->{$keys[$j]} = $value;
+							$row->{$this->headers[$j]} = $value;
 						}
 
-						// store the csv data as an array
+						// store the row data into the results array
 						$this->data[] = $row;
+					} else {
+						// Set the CSV Header
+						$this->headers = $data;
 					}
 
 					// increment the index counter
@@ -130,5 +175,17 @@ class Parser
 	public function all()
 	{
 		return $this->data;
+	}
+
+	/**
+	 * Returns the total number of rows
+	 * created into Data Object from the
+	 * parsed CSV file
+	 *
+	 * @return int
+	 */
+	public function count()
+	{
+		return count($this->data);
 	}
 }
