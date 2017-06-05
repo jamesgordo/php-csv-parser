@@ -8,4 +8,10 @@ before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
 
+before_install:
+  - pip install --user codecov
+
+after_success:
+  - codecov --file coverage/lcov.info --disable search
+
 script: phpunit
