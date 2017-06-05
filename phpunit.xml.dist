@@ -16,5 +16,6 @@
 	</testsuites>
 	<logging>
 		<log type="coverage-html" target="tests/coverage" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70" />
+		<log type="coverage-clover" target="clover.xml"/>
 	</logging>
 </phpunit>

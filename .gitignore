@@ -2,3 +2,4 @@ vendor/
 tests/coverage/
 composer.lock
 .DS_Store
+clover.xml
