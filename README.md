@@ -1,5 +1,7 @@
 # PHP-CSV-PARSER
 
+[![Build Status](https://travis-ci.org/jamesgordo/php-csv-parser.svg?branch=master)](https://travis-ci.org/jamesgordo/php-csv-parser)  [![codecov](https://codecov.io/gh/jamesgordo/php-csv-parser/branch/master/graph/badge.svg)](https://codecov.io/gh/jamesgordo/php-csv-parser)
+
 A lightweight wrapper for the PHP CSV Parser providing ease of use in parsing a CSV Files.
 
 The Library returns the CSV file as an array of objects with the first row of the CSV file 
