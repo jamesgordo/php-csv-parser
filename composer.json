@@ -1,0 +1,22 @@
+{
+    "name": "jamesgordo/php-csv-parser",
+    "description": "Parses a CSV File into standard Class with the header as Object Properties.",
+    "type": "library",
+    "keywords": ["php", "csv parser", "php csv parser"],
+    "require-dev": {
+        "phpunit/phpunit": "4.0.*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "James Gordo",
+            "email": "hello@jamesgordo.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "JamesGordo\\CSV\\": "src"
+        }
+    }
+}
