@@ -2,14 +2,19 @@
 
 [![Build Status](https://travis-ci.org/jamesgordo/php-csv-parser.svg?branch=master)](https://travis-ci.org/jamesgordo/php-csv-parser)  [![codecov](https://codecov.io/gh/jamesgordo/php-csv-parser/branch/master/graph/badge.svg)](https://codecov.io/gh/jamesgordo/php-csv-parser)
 
-A lightweight wrapper for the PHP CSV Parser providing ease of use in parsing a CSV Files.
+Turn your CSV files into readable and accessable Data Objects. This Library is a wrapper for PHP's built-in
+``fgetcsv`` which provides you a hassle free CSV File parsing.
 
-The Library returns the CSV file as an array of objects with the first row of the CSV file 
-as key properties of the object which gives user easy access to column values.
+Each row on your CSV file is dynamically transformed into Data Objects with keys set directly from the first 
+row of your CSV file.
 
-Installation
-===
-Add the package to your `composer.json`
+## How to Use
+Run the following command in your terminal 
+```
+composer require jamesgordo/php-csv-parser
+```
+
+Or simply add this to your `composer.json`
 ```json
 {
 	"require": {
@@ -17,7 +22,12 @@ Add the package to your `composer.json`
 	}
 }
 ```
-Sample CSV File `users.csv`
+Then run
+```
+composer update
+```
+
+Create a Sample CSV File `users.csv`
 ```csv
 id,first_name,last_name
 1,John,Doe
@@ -25,7 +35,7 @@ id,first_name,last_name
 3,Mark,Cooper
 ```
 
-Example
+Example Implementation
 ```php
 <?php
 
@@ -39,16 +49,28 @@ public function list_users() {
 	foreach($users->all() as $user) {
 		echo "User Details: {$user->id} | {$user->first_name} {$user->last_name}";
 	}
+
+	echo "Total Parsed: " . {$users->count() . " Users";
 }
 
 ```
 
-Version
-===
+Below are the list of the public methods you will most likely use.
+```php
+	$users = new Parser('/path/to/users.csv')	// Initializes the Parser
+	$users->setCsv('/path/to/file.csv');		// Sets the File to be Parsed
+	$users->getCsv();				// Returns the File to be Parsed
+	$users->checkFile('/path/to/file.csv');		// Validates if File is a valid CSV File
+	$users->parse();				// Triggers the Parsing of CSV file
+	$users->all();					// Returns array of Data Objects parsed from the CSV file
+	$users->count();				// Returns the total rows parsed from the CSV file
+```
+
+## Version
 1.0.0
 
-License
-===
+
+## License
 MIT License
 
 Copyright (c) 2017 James Gordo <hello@jamesgordo.com>
