@@ -38,20 +38,20 @@ id,first_name,last_name
 Example Implementation
 ```php
 <?php
+// load vendor autoload
+require_once __DIR__ . '/vendor/autoload.php';
 
 use JamesGordo\CSV\Parser;
 
-public function list_users() {
-	// Initalize the Parser
-	$users = new Parser('/path/to/users.csv');
+// Initalize the Parser
+$users = new Parser('/path/to/users.csv');
 
-	// loop through each user and echo the details
-	foreach($users->all() as $user) {
-		echo "User Details: {$user->id} | {$user->first_name} {$user->last_name}";
-	}
-
-	echo "Total Parsed: " . {$users->count() . " Users";
+// loop through each user and echo the details
+foreach($users->all() as $user) {
+	echo "User Details: {$user->id} | {$user->first_name} {$user->last_name}";
 }
+
+echo "Total Parsed: " . $users->count() . " Users";
 
 ```
 
