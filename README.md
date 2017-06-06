@@ -1,12 +1,17 @@
-# PHP-CSV-PARSER
+# PHP CSV Parser
 
-[![Build Status](https://travis-ci.org/jamesgordo/php-csv-parser.svg?branch=master)](https://travis-ci.org/jamesgordo/php-csv-parser)  [![codecov](https://codecov.io/gh/jamesgordo/php-csv-parser/branch/master/graph/badge.svg)](https://codecov.io/gh/jamesgordo/php-csv-parser)
+[![Build Status](https://travis-ci.org/jamesgordo/php-csv-parser.svg?branch=master)](https://travis-ci.org/jamesgordo/php-csv-parser)  [![codecov](https://codecov.io/gh/jamesgordo/php-csv-parser/branch/master/graph/badge.svg)](https://codecov.io/gh/jamesgordo/php-csv-parser)  [![stability-stable](https://img.shields.io/badge/stability-stable-green.svg)](https://github.com/jamesgordo/php-csv-parser)
 
-Turn your CSV files into readable and accessable Data Objects. This Library is a wrapper for PHP's built-in
-``fgetcsv`` which provides you a hassle free CSV File parsing.
+Turn your CSV files into readable and accessable Data Objects easily. This Library wraps the PHP's built-in
+``fgetcsv`` function to provide you a hassle free CSV File parsing.
 
 Each row on your CSV file is dynamically transformed into Data Objects with keys set directly from the first 
 row of your CSV file.
+
+
+## PHP Version Support
+The library has been tested to work on PHP Versions >=5.3.
+
 
 ## How to Use
 Run the following command in your terminal 
