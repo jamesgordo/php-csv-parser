@@ -1,6 +1,6 @@
 {
     "name": "jamesgordo/php-csv-parser",
-    "description": "Parses a CSV File into standard Class with the header as Object Properties.",
+    "description": "Easiest and Convenient Way to Parse CSV Files using PHP.",
     "type": "library",
     "keywords": ["php", "csv parser", "php csv parser"],
     "require-dev": {
