@@ -12,10 +12,8 @@ namespace JamesGordo\CSV;
  *
  * @package  JamesGordo\CSV
  * @author   James Gordo <hello@jamesgordo.com>
- * @version  1.0.0
+ * @version  1.0.1
  */
-
-use JamesGordo\CSV\Data;
 
 class Parser
 {
@@ -69,9 +67,11 @@ class Parser
 	 * Parser Constructor.
 	 *
 	 * @param string $csv
+	 * @param string $delimiter
+	 * @param int $limit
 	 * @return void
 	 */
-	public function __construct($csv = null, $limit = 0, $delimiter = ",")
+	public function __construct($csv = null, $delimiter = ",")
 	{
 		// Parse Automatically if $csv file is passed.
 		if(strlen($csv) > 0) {
@@ -179,19 +179,11 @@ class Parser
 				if ($data != null) {
 					// verify the starting index
 					if ($i !== 0) {
-						// Initialize the Data Object
-						$row = new Data();
-
-						// Dynamically set all the Data property
-						foreach ($data as $j => $value){
-							$row->{$this->headers[$j]} = preg_replace("/\xEF\xBB\xBF/", "", trim($value));
-						}
-
 						// store the row data into the results array
-						$this->data[] = $row;
+						$this->data[] = (object) array_combine($this->headers, $data);
 					} else {
 						// Set the CSV Header
-						$this->headers = $data;
+						$this->headers = array_map(array($this,"_sanitize"), $data);
 					}
 
 					// increment the index counter
@@ -207,7 +199,7 @@ class Parser
 	/**
 	 * Retrieves all the CSV Data as array
 	 *
-	 * @return array JamesGordo\CSV\Data
+	 * @return array stdClass
 	 */
 	public function all()
 	{
@@ -224,5 +216,15 @@ class Parser
 	public function count()
 	{
 		return count($this->data);
+	}
+
+	/**
+	 * Cleans Up Unwanted Characters
+	 *
+	 * @return string
+	 */
+	public function _sanitize($string)
+	{
+		return preg_replace("/\xEF\xBB\xBF/", "", trim($string));
 	}
 }

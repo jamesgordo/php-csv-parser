@@ -29,7 +29,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
 		$file = __DIR__ . '/files/users.csv';
 
 		// Parse the File
-		$users = new Parser($file, 0, '!!');
+		$users = new Parser($file, '$');
 	}
 
 	/**
