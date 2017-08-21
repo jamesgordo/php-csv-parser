@@ -19,6 +19,20 @@ class ParserTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Testing the Event of Parsing CSV with invalid delimiter
+	 *
+	 * @expectedException InvalidArgumentException
+	 * @expectedExceptionMessage Delimiter is not valid.
+	 */
+	public function testInvalidDelimiter() {
+		// Set the file to be parsed
+		$file = __DIR__ . '/files/users.csv';
+
+		// Parse the File
+		$users = new Parser($file, 0, '!!');
+	}
+
+	/**
 	 * Testing the Event of Setting empty filename
 	 *
 	 * @expectedException InvalidArgumentException

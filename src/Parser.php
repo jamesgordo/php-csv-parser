@@ -35,6 +35,24 @@ class Parser
 	protected $headers = array();
 
 	/**
+	 * Setting to 0 makes the maximum line length not limited
+	 *
+	 * @var integer $limit
+	 * @see http://php.net/manual/en/function.fgetcsv.php
+	 */
+	protected $limit = 0;
+
+	/**
+	 * @var string $delimiter
+	 */
+	protected $delimiter;
+
+	/**
+	 * @var array valid_delimiters
+	 */
+	protected $valid_delimiters = array( ',', ';', "\t", '|', ':' );
+
+	/**
 	 * @var array $valid_mime_types
 	 */
 	protected $valid_mime_types = array(
@@ -53,12 +71,15 @@ class Parser
 	 * @param string $csv
 	 * @return void
 	 */
-	public function __construct($csv = null)
+	public function __construct($csv = null, $limit = 0, $delimiter = ",")
 	{
 		// Parse Automatically if $csv file is passed.
 		if(strlen($csv) > 0) {
 			// Set the File to be Parsed
 			$this->setCsv($csv);
+
+			// Set the Delimeter
+			$this->setDelimeter($delimiter);
 
 			// trigger the parsing
 			$this->parse();
@@ -77,6 +98,22 @@ class Parser
 		$this->checkFile($csv);
 
 		$this->csv = $csv;
+	}
+
+	/**
+	 * Sets the delimiter for parsing the csv
+	 *
+	 * @param $string $delimiter
+	 * @throws InvalidArgumentException Delimiter is not valid.
+	 * @return void
+	 */
+	public function setDelimeter($delimiter) {
+		// verify if parameter meets the contract
+		if(in_array($delimiter, $this->valid_delimiters) !== true) {
+			throw new \InvalidArgumentException('Delimiter is not valid.');
+		}
+
+		$this->delimiter = $delimiter;
 	}
 
 	/**
@@ -137,7 +174,7 @@ class Parser
 			$i = 0;
 
 			// loop through each row in the csv file
-			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+			while (($data = fgetcsv($handle, $this->limit, $this->delimiter)) !== FALSE) {
 				// skip all empty lines
 				if ($data != null) {
 					// verify the starting index
@@ -147,7 +184,7 @@ class Parser
 
 						// Dynamically set all the Data property
 						foreach ($data as $j => $value){
-							$row->{$this->headers[$j]} = $value;
+							$row->{$this->headers[$j]} = preg_replace("/\xEF\xBB\xBF/", "", trim($value));
 						}
 
 						// store the row data into the results array
