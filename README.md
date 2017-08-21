@@ -60,6 +60,22 @@ echo "Total Parsed: " . $users->count() . " Users";
 
 ```
 
+## Options
+
+You can set the second as delimiter. The default delimiter is ",".
+```php
+<?php
+// load vendor autoload
+require_once __DIR__ . '/vendor/autoload.php';
+
+use JamesGordo\CSV\Parser;
+
+// Initalize the Parser with custom delimiter
+$users = new Parser('/path/to/users.csv', "|");
+```
+
+You can see the acceptable delimiters [here](https://github.com/jamesgordo/php-csv-parser/blob/master/src/Parser.php#L51)
+
 Below are the list of the public methods you will most likely use.
 ```php
 	$users = new Parser('/path/to/users.csv')	// Initializes the Parser
@@ -72,7 +88,7 @@ Below are the list of the public methods you will most likely use.
 ```
 
 ## Version
-1.0.0
+1.0.1
 
 
 ## License
