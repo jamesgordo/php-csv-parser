@@ -20,3 +20,6 @@ after_success:
 
 script: phpunit
 
+addons:
+  apt:
+    update: true
