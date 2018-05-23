@@ -1,8 +1,11 @@
 <?php
 
-use JamesGordo\CSV\Parser;
+namespace JamesGordo\CSV\Tests;
 
-class ParserTest extends PHPUnit_Framework_TestCase {
+use JamesGordo\CSV\Parser;
+use PHPUnit\Framework\TestCase;
+
+class ParserTest extends TestCase {
 	/**
 	 * Testing the Event of parsing a non existing
 	 * CSV file
