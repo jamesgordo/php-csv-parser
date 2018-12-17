@@ -1,8 +1,11 @@
 <?php
 
-use JamesGordo\CSV\Data;
+namespace JamesGordo\CSV\Tests;
 
-class DataTest extends PHPUnit_Framework_TestCase {
+use JamesGordo\CSV\Data;
+use PHPUnit\Framework\TestCase;
+
+class DataTest extends TestCase {
 	/**
 	 * Testing the event of setting empty key
 	 *
