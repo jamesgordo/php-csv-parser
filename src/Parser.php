@@ -89,7 +89,7 @@ class Parser
     /**
      * Sets the CSV file to be parsed.
      *
-     * @param sting $csv
+     * @param string $csv
      * @return void
      */
     public function setCsv($csv)
