@@ -153,7 +153,7 @@ class Parser
         }
 
         // verify if file is a valid csv file
-        if (in_array(mime_content_type($file), $this->valid_mime_types) !== true) {
+        if (!is_object($file) && in_array(mime_content_type($file), $this->valid_mime_types) !== true) {
             throw new \InvalidArgumentException("File is not a valid csv file.");
         }
 
