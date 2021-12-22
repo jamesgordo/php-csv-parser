@@ -229,4 +229,13 @@ class Parser
     {
         return preg_replace("/\xEF\xBB\xBF/", "", trim($string));
     }
+    
+    /**
+     * Returns all the headers(columns) of the CSV.
+     * 
+     * @return array
+     */
+    public function getHeaders() {
+        return $this->headers;
+    }
 }
