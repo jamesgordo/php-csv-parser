@@ -11,7 +11,7 @@ namespace JamesGordo\CSV;
  * access to each data value.
  *
  * @package  JamesGordo\CSV
- * @author   James Gordo <hello@jamesgordo.com>
+ * @author   James Gordo
  * @version  1.0.1
  */
 

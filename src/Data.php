@@ -11,37 +11,37 @@ namespace JamesGordo\CSV;
  * access to each data value.
  *
  * @package  JamesGordo\CSV
- * @author   James Gordo <hello@jamesgordo.com>
+ * @author   James Gordo
  * @version  1.0.0
  */
 
 class Data
 {
-	/**
-	 * Automagically sets object properties
-	 * and make it accessible
-	 *
-	 * @throws InvalidArgumentException Parameter name must be a valid string.
-	 * @return void
-	 */
-	public function __set($name, $value)
-	{
-		// verify if parameter meets the contract
-		if(strlen($name) < 1) {
-			throw new \InvalidArgumentException("Parameter name must be a valid string.");
-		}
+    /**
+     * Automagically sets object properties
+     * and make it accessible
+     *
+     * @throws InvalidArgumentException Parameter name must be a valid string.
+     * @return void
+     */
+    public function __set($name, $value)
+    {
+        // verify if parameter meets the contract
+        if(strlen($name) < 1) {
+            throw new \InvalidArgumentException("Parameter name must be a valid string.");
+        }
 
-		$this->{$name} = $value;
-	}
+        $this->{$name} = $value;
+    }
 
-	/**
-	 * Retrieves dynamically set
-	 * object properties
-	 *
-	 * @return any
-	 */
-	public function __get($name)
-	{
-		return $this->{$name};
-	}
+    /**
+     * Retrieves dynamically set
+     * object properties
+     *
+     * @return any
+     */
+    public function __get($name)
+    {
+        return $this->{$name};
+    }
 }

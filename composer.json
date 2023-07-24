@@ -10,8 +10,7 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "James Gordo",
-            "email": "hello@jamesgordo.com"
+            "name": "James Gordo"
         }
     ],
     "require": {
