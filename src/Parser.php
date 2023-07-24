@@ -170,32 +170,18 @@ class Parser
         // Verify if the CSV File is Valid
         $this->checkFile();
 
-        // Open the CSV file to be parsed
-        if (($handle = fopen($this->getCsv(), "r")) !== false) {
-            // set the csv index
-            $i = 0;
+        // parse the csv
+        $items = array_map('str_getcsv', file($this->getCsv()));
 
-            // loop through each row in the csv file
-            while (($data = fgetcsv($handle, $this->limit, $this->delimiter)) !== false) {
-                // skip all empty lines
-                if ($data[0] != null) {
-                    // verify the starting index
-                    if ($i !== 0) {
-                        // store the row data into the results array
-                        $this->data[] = (object) array_combine($this->headers, $data);
-                    } else {
-                        // Set the CSV Header
-                        $this->headers = array_map(array($this,"_sanitize"), $data);
-                    }
+        // Set the CSV Header
+        $headers = array_shift($items);
+        $this->headers = array_map(array($this,"_sanitize"), $headers);
+        $this->data = array_map(array($this, 'mapHeaderToRow'), $items);
+    }
 
-                    // increment the index counter
-                    $i++;
-                }
-            }
-
-            // close handler
-            fclose($handle);
-        }
+    public function mapHeaderToRow($row)
+    {
+        return (object) array_combine($this->headers, $row);
     }
 
     /**

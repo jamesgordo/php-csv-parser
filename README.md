@@ -97,7 +97,7 @@ Below are the list of the public methods you will most likely use.
 
 ## Version
 
-1.0.4
+1.0.5
 
 ## License
 

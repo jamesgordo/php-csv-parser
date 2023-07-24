@@ -127,4 +127,17 @@ class ParserTest extends TestCase
         // Verify Expected Results
         $this->assertEquals(3, $users->count());
     }
+
+    public function testBlankFirstColumn()
+    {
+        // Set the file to be parsed
+        $csv = __DIR__ . '/files/no-first-column.csv';
+
+        // Parse the File
+        $users = new Parser($csv);
+
+        foreach($users->all() as $key => $user) {
+            $this->assertEquals(0, strlen($user->id));
+        }
+    }
 }
