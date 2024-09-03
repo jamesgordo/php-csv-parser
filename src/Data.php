@@ -15,6 +15,7 @@ namespace JamesGordo\CSV;
  * @version  1.0.0
  */
 
+#[\AllowDynamicProperties]
 class Data
 {
     /**
