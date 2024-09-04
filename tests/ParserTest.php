@@ -8,16 +8,16 @@ use PHPUnit\Framework\TestCase;
 class ParserTest extends TestCase
 {
     /**
-     * Testing the Event of parsing a non existing
-     * CSV file
+     * Testing the Event of parsing a non existing CSV file
      *
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage File employee.csv does not exist.
      */
     public function testFileNotExist()
     {
         // Set the file to be parsed
         $file = 'employee.csv';
+
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage("File $file does not exist");
 
         // Parse the File
         $users = new Parser($file);
@@ -26,11 +26,12 @@ class ParserTest extends TestCase
     /**
      * Testing the Event of Parsing CSV with invalid delimiter
      *
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Delimiter is not valid.
      */
     public function testInvalidDelimiter()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('Delimiter is not valid.');
+
         // Set the file to be parsed
         $file = __DIR__ . '/files/users.csv';
 
@@ -41,12 +42,13 @@ class ParserTest extends TestCase
     /**
      * Testing the Event of Setting empty filename
      *
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Filename is not a valid string.
      * @return void
      */
     public function testSetEmptyFileName()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('Filename is not a valid string.');
+
         // Initialize the Parser
         $users = new Parser();
         $users->setCsv('');
@@ -54,14 +56,14 @@ class ParserTest extends TestCase
     }
 
     /**
-     * Test to verify the event of setting
-     * an invalid file type
+     * Test to verify the event of setting an invalid file type
      *
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage File is not a valid csv file.
      */
     public function testInvalidCsvFile()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('File is not a valid csv file.');
+
         // set the invalid file
         $file = __DIR__ . '/DataTest.php';
 
