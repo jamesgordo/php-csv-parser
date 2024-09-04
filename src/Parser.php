@@ -71,7 +71,7 @@ class Parser
      * @param int $limit
      * @return void
      */
-    public function __construct($csv = null, $delimiter = ",")
+    public function __construct($csv = '', $delimiter = ",")
     {
         // Parse Automatically if $csv file is passed.
         if (strlen($csv) > 0) {
