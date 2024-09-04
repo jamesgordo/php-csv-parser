@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 1.0.6
+
+September 4, 2024
+ 
+- Fix for "Passing null to parameter of type string is deprecated." [#14](https://github.com/jamesgordo/php-csv-parser/pull/14)
+- Fix for "Creation of dynamic property is deprecated." [(@Serzol64)](https://github.com/jamesgordo/php-csv-parser/pull/10)
+- Updated PHPUnit Version & Configuration and unit test implementation.  [#12](https://github.com/jamesgordo/php-csv-parser/pull/12)
+
 ## 1.0.5
 
 July 24, 2023

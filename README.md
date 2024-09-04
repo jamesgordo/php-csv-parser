@@ -97,13 +97,13 @@ Below are the list of the public methods you will most likely use.
 
 ## Version
 
-1.0.5
+1.0.6
 
 ## License
 
 MIT License
 
-Copyright (c) 2023 James Gordo
+Copyright (c) 2024 James Gordo
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
