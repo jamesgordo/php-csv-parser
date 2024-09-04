@@ -10,12 +10,12 @@ class DataTest extends TestCase
     /**
      * Testing the event of setting empty key
      *
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Parameter name must be a valid string.
      * @return void
      */
     public function testSetEmptyKey()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('Parameter name must be a valid string.');
         $data = new Data();
         $data->__set('', 'value');
     }
